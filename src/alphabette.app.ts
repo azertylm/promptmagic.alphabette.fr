@@ -8,7 +8,7 @@ import type { AlphaAppConfig } from '@alphabette/shell';
 export const APP: AlphaAppConfig = {
   key: 'promptmagic',
   name: 'Prompt Magic',
-  tagline: 'Architecte d'apps utiles à l'humain',
+  tagline: 'Architecte d’apps utiles à l’humain',
 
   // Couleur d'identité du site : toute la base s'y adapte.
   accent: '#7C3AED',
