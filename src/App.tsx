@@ -105,8 +105,8 @@ function Contenu({ menu, fermeMenu }: { menu: boolean; fermeMenu: () => void }) 
           <a href="https://alphabette.fr" target="_blank" rel="noreferrer">
             alphabette.fr
           </a>
-          . IA souveraine Mistral AI (France, BYOK) avec moteur local de repli, sans publicité, sans
-          revente de données : tout le travail reste dans votre navigateur.{' '}
+          . Sans publicité, sans revente de données. Votre travail reste dans votre navigateur ;
+          vos textes ne partent chez Mistral AI que si vous ajoutez votre clé.{' '}
           <a href="https://alphabette.fr/don" target="_blank" rel="noreferrer">
             ♥ Faire un don
           </a>
