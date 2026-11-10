@@ -501,7 +501,7 @@ textarea.pm-champ {
 }
 @media (max-width: 1080px) {
   .pm-atelier {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 .pm-onglets {
@@ -892,6 +892,7 @@ textarea.pm-champ {
 /* Sections empilées */
 .pm-section {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.9rem;
   margin-bottom: 2.2rem;
 }
@@ -952,4 +953,29 @@ textarea.pm-champ {
 }
 .pm-pied a:hover {
   text-decoration: underline;
+}
+
+/* Téléphone : rien ne doit élargir la page. */
+.pm-atelier > *,
+.pm-section > * {
+  min-width: 0;
+}
+.pm-carte select,
+.pm-carte input,
+.pm-carte textarea {
+  max-width: 100%;
+  min-width: 0;
+}
+.pm-resultat,
+.pm-carte pre {
+  overflow-wrap: anywhere;
+}
+.pm-graduation {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+.pm-ligne-separee {
+  flex-wrap: wrap;
+  min-width: 0;
 }
