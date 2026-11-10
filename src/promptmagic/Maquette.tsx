@@ -21,7 +21,7 @@ export function Maquette({ idee, specs }: MaquetteProps) {
           <div className="pm-maq-logo">{idee.titre.slice(0, 2).toUpperCase()}</div>
           <div>
             <div className="pm-maq-nom">{idee.titre}</div>
-            <div className="pm-maq-ligne">● En ligne · Impact {idee.impact}%</div>
+            <div className="pm-maq-ligne">Maquette d’exemple — pas une vraie application</div>
           </div>
         </div>
         <span className="pm-maq-domaine">{idee.domaine}</span>

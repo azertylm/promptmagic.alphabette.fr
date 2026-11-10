@@ -204,7 +204,7 @@ export function ExplorateurPane() {
       {/* Grille des sous-thèmes */}
       {enChargement ? (
         <div className="pm-vide">
-          <span aria-hidden="true">⏳</span> Génération intelligente des 20 sous-catégories à impact
+          <span aria-hidden="true">⏳</span> Préparation des 20 sous-catégories à impact
           humain…
         </div>
       ) : (

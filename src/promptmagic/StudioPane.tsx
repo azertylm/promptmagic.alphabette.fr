@@ -136,8 +136,8 @@ export function StudioPane() {
       majTextePrompt(res.texte);
       notifier(
         res.source === 'mistral'
-          ? 'Prompt enrichi par Mistral avec les meilleures pratiques UX/UI !'
-          : 'Prompt enrichi (moteur local) avec les meilleures pratiques UX/UI !',
+          ? 'Prompt réécrit par Mistral (relisez-le avant de l\u2019utiliser).'
+          : 'Sans clé Mistral : un bloc standard d\u2019exigences UX/accessibilité a été ajouté à la fin.',
         'ok',
       );
     } finally {
@@ -155,7 +155,12 @@ export function StudioPane() {
     try {
       const res = await simuler(cleMistral || null, t);
       setResultat(res.texte);
-      notifier('Simulation terminée ! Consultez le résultat sous le prompt.', 'info');
+      notifier(
+        res.source === 'mistral'
+          ? 'Réponse de Mistral affichée sous le prompt (une IA peut se tromper).'
+          : 'Sans clé Mistral : relecture simple du prompt affichée, pas une réponse d\u2019IA.',
+        res.source === 'mistral' ? 'info' : 'warn',
+      );
     } finally {
       setSimule(false);
     }
@@ -213,7 +218,7 @@ export function StudioPane() {
         <div className="pm-carte">
           <div className="pm-ligne-separee" style={{ borderTop: 'none', paddingTop: 0, marginBottom: '0.6rem' }}>
             <h2 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>⚙️ Réglages IA & Modèle Cible</h2>
-            <span className="pm-graduation">{cleMistral ? '🤖 Mistral BYOK' : '⚙️ Moteur local illimité'}</span>
+            <span className="pm-graduation">{cleMistral ? '🤖 Mistral (votre clé)' : '⚙️ Modèles intégrés, sans IA'}</span>
           </div>
           <div className="pm-reglages">
             <label>
@@ -249,9 +254,10 @@ export function StudioPane() {
             </label>
           </div>
           <p className="pm-chapeau" style={{ fontSize: '0.78rem', marginTop: '0.5rem' }}>
-            💡 <strong>Astuce :</strong> l'IA (règle écosystème) est Mistral AI, hébergée en France, en
-            BYOK — la clé reste dans votre navigateur et n'est envoyée qu'à Mistral. Sans clé, les 20
-            idées et le moteur local d'architecture responsive fonctionnent en illimité.
+            💡 <strong>À savoir :</strong> l'IA est Mistral AI (entreprise française), avec votre propre
+            clé : elle reste dans votre navigateur et n'est envoyée qu'à Mistral, comme vos textes.
+            Sans clé, les 20 idées et les modèles de prompts intégrés fonctionnent sans limite, mais
+            ce ne sont pas des réponses d'IA.
           </p>
         </div>
 
@@ -382,7 +388,7 @@ export function StudioPane() {
                   {enrichit ? '⏳ Optimisation…' : '✨ Enrichir UX/UI'}
                 </button>
                 <button type="button" className="pm-bouton pm-bouton--eco" disabled={simule} onClick={simulerPrompt}>
-                  {simule ? '⏳ Simulation…' : '▶ Simuler Réponse'}
+                  {simule ? '⏳ En cours…' : cleMistral ? '▶ Tester avec Mistral' : '▶ Relire le prompt'}
                 </button>
                 <button type="button" className="pm-bouton pm-bouton--or" onClick={favoriser}>
                   ⭐ Favori

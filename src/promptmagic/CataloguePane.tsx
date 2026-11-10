@@ -43,8 +43,8 @@ export function CataloguePane() {
         <p className="pm-chapeau">
           Explorez <strong>20 idées d'applications citoyennes et humaines</strong> déjà intégrées,
           descendez jusqu'à 20 niveaux de précision thématique dans l'explorateur, puis générez
-          d'un clic le cahier des charges complet, le prompt développeur et une maquette
-          responsive interactive (mobile, tablette, bureau).
+          d'un clic le cahier des charges, le prompt développeur et un aperçu de maquette
+          (mobile, tablette, bureau). Prompt Magic écrit des prompts : il ne fabrique pas l'application.
         </p>
         <div className="pm-boutons" style={{ marginTop: '0.9rem' }}>
           <button type="button" className="pm-bouton pm-bouton--principal" onClick={auHasard}>
@@ -67,7 +67,7 @@ export function CataloguePane() {
           <div className="pm-stat">
             <div className="pm-stat-lib">🌳 Arborescence</div>
             <div className="pm-stat-valeur">20 niveaux</div>
-            <p className="pm-stat-detail">Exploration infinie de niches à fort impact</p>
+            <p className="pm-stat-detail">Des sous-thèmes de plus en plus précis</p>
           </div>
           <div className="pm-stat">
             <div className="pm-stat-lib">📱 Responsive</div>
@@ -75,10 +75,10 @@ export function CataloguePane() {
             <p className="pm-stat-detail">Simulateur visuel mobile, tablette & bureau</p>
           </div>
           <div className="pm-stat">
-            <div className="pm-stat-lib">🇫🇷 IA souveraine</div>
-            <div className="pm-stat-valeur">100% local</div>
+            <div className="pm-stat-lib">🔒 Sans compte</div>
+            <div className="pm-stat-valeur">Dans votre navigateur</div>
             <p className="pm-stat-detail">
-              Moteur autonome + Mistral AI (France) en BYOK, avec repli local
+              Modèles intégrés sans IA ; Mistral AI seulement si vous ajoutez votre clé
             </p>
           </div>
         </div>
@@ -153,9 +153,6 @@ export function CataloguePane() {
                   <div className="pm-idee-tete">
                     <span className="pm-idee-badge">
                       {idee.emoji} #{idee.id} · {idee.domaine}
-                    </span>
-                    <span className="pm-idee-impact" title="Indice d'impact humain">
-                      ♥ {idee.impact}%
                     </span>
                   </div>
                   <h3 className="pm-idee-titre">{idee.titre}</h3>

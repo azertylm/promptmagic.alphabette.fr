@@ -271,7 +271,7 @@ export async function chargerExemples(
 --------------------------------------------------------------------------- */
 
 const AJOUT_LOCAL =
-  '--- OPTIMISATION UX/UI & ACCESSIBILITÉ AJOUTÉE ---\n' +
+  '--- EXIGENCES UX/UI & ACCESSIBILITÉ AJOUTÉES (bloc standard) ---\n' +
   '• Design System : interface claire côté base alphabette (accent du site, thème jour/nuit), transitions fluides.\n' +
   '• Responsive Mobile-First : barre d\u2019action accessible au pouce sur mobile, cibles tactiles >= 48px.\n' +
   '• Accessibilité Humaine : ratio de contraste AAA (>7:1), langage bienveillant sans jargon, zéro création de compte obligatoire.\n' +
@@ -298,26 +298,33 @@ export async function enrichir(
       return { texte: `${texte}\n\n${AJOUT_LOCAL}`, source: 'local', erreur };
     }
   }
-  return { texte: `${texte}\n\n${AJOUT_LOCAL}`, source: 'local', erreur: 'Aucune clé Mistral : enrichissement local appliqué.' };
+  return { texte: `${texte}\n\n${AJOUT_LOCAL}`, source: 'local', erreur: 'Aucune clé Mistral : un bloc standard d\u2019exigences a été ajouté à la fin du prompt.' };
 }
 
 /* ---------------------------------------------------------------------------
    Simulation d'exécution du prompt
 --------------------------------------------------------------------------- */
 
+/**
+ * Sans clé, il n'y a PAS de simulation : on ne peut pas deviner ce qu'une IA
+ * répondrait. On rend une simple relecture du texte du prompt (recherche de
+ * mots-clés), clairement présentée comme telle — sans note ni « validation ».
+ */
 export function simulationLocal(texte: string): string {
-  const longueur = texte.length;
-  const aModules = /LocalStorage|PWA|hors-ligne/i.test(texte);
-  const aAccess = /WCAG|accessib|contraste/i.test(texte);
+  const points: Array<[string, RegExp]> = [
+    ['le public visé est nommé', /public|cible|utilisateur|personnes|seniors|familles|voisins/i],
+    ['les fonctions attendues sont listées', /fonctionnalit|fonctions|modules?|1\.|- /i],
+    ['l\u2019affichage sur téléphone est demandé', /mobile|responsive|téléphone|smartphone/i],
+    ['l\u2019accessibilité est demandée', /WCAG|accessib|contraste|lecteur d\u2019écran/i],
+    ['le stockage des données est précisé', /LocalStorage|hors-ligne|PWA|base de données|compte/i],
+  ];
+  const lignes = points.map(([libelle, motif]) => `${motif.test(texte) ? '✓' : '✗ à préciser :'} ${libelle}`);
   return (
-    "✅ SIMULATION D'ARCHITECTURE VALIDÉE :\n\n" +
-    '1. Structure HTML5 sémantique + CSS responsive (Mobile 360px → Desktop 1440px).\n' +
-    "2. Composants clés détectés : tableau de bord d'impact, filtres temps réel" +
-    (aModules ? ', mode hors-ligne (LocalStorage)\n' : '\n') +
-    "3. Score d'accessibilité estimé : " +
-    (aAccess ? '98/100 (WCAG AAA, navigation clavier & lecteurs d\u2019écran)' : '68/100 — active le module Accessibilité AAA pour l\u2019améliorer') +
-    '\n' +
-    `4. Prompt prêt à copier dans Claude Artifacts, Gemini Canvas ou Cursor (${longueur} caractères).`
+    'RELECTURE AUTOMATIQUE DU PROMPT (ce n\u2019est pas une réponse d\u2019IA)\n\n' +
+    lignes.join('\n') +
+    `\n\nLongueur : ${texte.length} caractères.\n\n` +
+    'Pour voir une vraie réponse, ajoutez votre clé Mistral dans les réglages, ou copiez ce prompt dans l\u2019IA de votre choix. ' +
+    'Cette relecture ne cherche que des mots : elle ne garantit pas la qualité du résultat.'
   );
 }
 
@@ -346,5 +353,5 @@ export async function simuler(
       return { texte: simulationLocal(texte), source: 'local', erreur };
     }
   }
-  return { texte: simulationLocal(texte), source: 'local', erreur: 'Aucune clé Mistral : simulation produite localement.' };
+  return { texte: simulationLocal(texte), source: 'local', erreur: 'Aucune clé Mistral : relecture simple du prompt, pas de réponse d\u2019IA.' };
 }
